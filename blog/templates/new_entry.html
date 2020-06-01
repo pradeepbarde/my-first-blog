@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block page_header %} <!-- BS4-->
+    <h3>Add new entry(abstract/description):</h3> <!-- BS4-->
+{% endblock page_header %} <!-- BS4-->
+
+{% block content %}
+
+<p><h3><a href="{% url 'topic' topic.id %}">Title:{{ topic }}</a></h3></p>
+<!--<p>Add a new entry(abstract/description):</p> -->
+<form action="{% url 'new_entry' topic.id %}" method='post' enctype='multipart/form-data' class="form">
+{% csrf_token %}
+{% bootstrap_form form %} <!--{{ form.as_p }} -->
+{{ form_up.as_p }}
+{% buttons %}
+<button name='submit' class="btn btn-primary">add/upload-entry</button>
+{% endbuttons %}
+</form>
+
+{% endblock content %}

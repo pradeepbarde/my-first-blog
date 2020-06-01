@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+<div class="jumbotron">            <!--new added-->
+<p class="lead">Learning Tracker helps you keep track of your learning. Once logged in user can create new topic,
+add/edit new entry, upload/read/download pdf for any topic you are learning about. 
+{% if not user.is_authenticated %}
+
+<strong><a href="{% url 'users:login' %}">Registered user pls. Log in</a></strong>
+</p>
+<a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+role="button">new user? Register &raquo;</a>
+
+{% endif %}
+
+
+<!--{% load staticfiles %} -->
+<!--<div> -->
+
+    <img src="{% static "images\cricket.jpg" %}" alt="Background Picture" />
+
+<!--</div> -->
+</div>
+
+<!--new for footer -->
+    <footer class="footer">
+      <div class="container">
+      <span class="text-muted">
+      © Learning Tracker 2020
+      </span>
+      </div>
+    </footer>
+{% endblock content %}
+
+<!-- image display-->

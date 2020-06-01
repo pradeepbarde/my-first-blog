@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block page_header %} <!-- BS4-->
+    <h3>{{ topic }}</h3> <!-- BS4-->
+{% endblock page_header %} <!-- BS4-->
+
+{% block content %}
+
+    <!--<p>Topic: {{ topic }}</p> -->
+    <!--<p>Entries:</p> -->
+
+    <p>
+        <a href="{% url 'new_entry' topic.id %}">add new entry</a>
+    </p>
+    
+    <ul>
+    {% for entry in entries %}
+        {% if forloop.revcounter0 > 0 %}
+        <!--<li>-->
+        <div class="card mb-3"> <!--BS4-->
+            <h5 class="card-header">  <!--BS4-->  
+            <p>{{ entry.date_added|date:'M d, Y H:i' }}
+            <small><a href="{% url 'edit_entry' entry.id %}">edit entry</a></small>
+            </p>
+            </h5> <!--BS4-->
+            <div class="card-body">
+            <p>{{ entry.text|linebreaks }}</p>
+            </div>
+            <!--
+            <p>
+                <small><a href="{% url 'edit_entry' entry.id %}">edit entry</a></small>
+            </p>
+            -->
+        </div>    
+        <!--</li> -->   
+        {% endif %}
+        
+    {% empty %}
+        <li>
+        There are no entries for this topic yet.
+        </li>
+    {% endfor %}
+    <div>
+    <p> (click add new entry- to add new description/upload pdf)  </p>
+    <p> <strong> Download pdf-study material,notes,books etc. </strong> </p>
+    
+    {% for entry in entries %}
+       
+        {% if forloop.revcounter0 == 0 %}
+        <a href="{% url 'download_file' entry.id %}"> About Us </a>
+        {% else %}
+            {% if entries %}
+                <p>
+                <a href="{% url 'download_file' entry.id %}"> download file:{{ topic }}{{ forloop.revcounter0 }} </a>
+                {# fname.upload.url   ufiles|first  #}
+                </p>
+            {% else %}     
+        
+                <p> Empty Set-no files to download</p>
+            {% endif %}     
+        {% endif %}    
+        
+    {% endfor %}
+    </div>
+    
+    </ul>
+
+    {% endblock content %}

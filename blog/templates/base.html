@@ -1,0 +1,98 @@
+{% load staticfiles %}
+{% load bootstrap4 %}
+{% comment %}
+<p>
+  <!--new added for site logo-->
+  <img src="{% static "images\sitelogo.png" %}" alt="Logo" />
+  <!--<img src="{{ MEDIA_URL }} \media\uploads\sitelogo.png" /> -->
+  <a href="{% url 'index' %}">Learning Tracker</a> -
+  <a href="{% url 'topics' %}">Topics</a> -
+  {% if user.is_authenticated %}
+    Hello, {{ user.username }}
+  <a href="{% url 'users:logout' %}">log out</a>
+  {% else %}
+    <a href="{% url 'users:register' %}">register</a> -
+    <a href="{% url 'users:login' %}">log in</a>
+    
+  {% endif %}
+  
+</p>
+
+{% block content %}{% endblock content %}
+{% endcomment %}
+
+<!--       Styling App -new code for base.html           -->
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+    shrink-to-fit=no">
+    <title>Learning Tracker</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    
+  </head>
+  <body>
+    
+    <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+      <img src="{% static "images\sitelogo.png" %}" alt="Logo" />
+      <a class="navbar-brand" href="{% url 'index'%}">-Learning Tracker</a>
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse"\
+        data-target="#navbarCollapse" aria-controls="navbarCollapse"\
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'topics'%}">Topics</a>
+            
+            </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <span class="navbar-text"}">Hello, {{ user.username }}.</span>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:logout' %}">Log out</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:register' %}">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:login' %}">Log in</a>
+            </li>
+            {% endif %}
+        </ul>
+      </div>
+
+
+    </nav>
+    <main role="main" class="container">
+        <div class="pb-2 mb-2 border-bottom">
+            {% block page_header %}{% endblock page_header %}
+        </div>
+        <div>
+            {% block content %}{% endblock content %}
+        </div>
+    </main>
+    <!--new for footer
+    <footer class="footer">
+      <div class="container">
+      <span class="text-muted">
+      © Learning Tracker 2020
+      </span>
+      </div>
+    </footer> -->
+  </body>
+</html>
+

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block page_header %} <!-- BS4-->
+    <h3>Edit entry:</h3> <!-- BS4-->
+{% endblock page_header %} <!-- BS4-->
+
+{% block content %}
+
+<p><h3><a href="{% url 'topic' topic.id %}">Title:{{ topic }}</a></h3></p>
+<!--<p>Edit entry:</p> -->
+
+<form action="{% url 'edit_entry' entry.id %}" method='post' class="form">
+{% csrf_token %}
+{% bootstrap_form form %} <!--{{ form.as_p }} -->
+{% buttons %}
+<button name="submit" class="btn btn-primary">save changes</button>
+{% endbuttons %}
+</form>
+{% endblock content %}
